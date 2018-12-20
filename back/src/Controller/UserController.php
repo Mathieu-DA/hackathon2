@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+
 use App\Repository\RealisationRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,28 +16,30 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class UserController extends AbstractController
 {
-
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
-    /**
-     * @Route("/user", name="user")
-     */
-    public function index()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
+//    /**
+//     * @Route("/user", name="user")
+//     */
+//    public function index()
+//    {
+//        return $this->render('user/index.html.twig', [
+//            'controller_name' => 'UserController',
+//        ]);
+//    }
 
     //Compte tous les points acquis par un user depuis le début du jeu
     /**
-     * @Route("/user_all_points/{id}", name="user_all_points")
+     * @Route("/user_all_points/{user}", name="user_all_points")
      */
-    public function userAllPoints()
+    public function userAllPoints(User $user)
     {
+        $realisations = $user->getRealisations();
+        $realisations = count($realisations->getKeys());
+        return $this->json(array('realisations' => $realisations));
 
     }
 
@@ -45,8 +49,6 @@ class UserController extends AbstractController
      */
     public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository)
     {
-//        $points = $userRepository->findOneBy(['id' => $id]);
-//        $MonthPoints = $points->getRealisations();
         $now = new \DateTime();
         $date = $now->format('Y-m');
 
