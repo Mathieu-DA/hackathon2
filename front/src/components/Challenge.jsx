@@ -11,26 +11,34 @@ class Challenge extends Component {
   }
 
   render() {
-
+    const { challenges } = this.props;
     return (
       <div>
         <Table>
           <thead>
             <tr>
-              <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Actions</th>
+              <th>Lundi</th>
+              <th>Mardi</th>
+              <th>Mercredi</th>
+              <th>Jeudi</th>
+              <th>Vendredi</th>
+              <th>Samedi</th>
+              <th>Dimanche</th>
             </tr>
           </thead>
           <tbody>
+
             <tr>
               <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
+              {/* {
+                challenges.map((challenge, index) => (
+                  <td>{challenge}</td>
+                  )
+                )
+              } */}
+                  </tr>
+            {/* <tr>
               <th scope="row">2</th>
               <td>Jacob</td>
               <td>Thornton</td>
@@ -41,7 +49,7 @@ class Challenge extends Component {
               <td>Larry</td>
               <td>the Bird</td>
               <td>@twitter</td>
-            </tr>
+            </tr> */}
           </tbody>
         </Table>
       </div>
