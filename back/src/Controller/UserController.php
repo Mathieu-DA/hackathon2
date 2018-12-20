@@ -93,10 +93,32 @@ class UserController extends AbstractController
         foreach ($users as $user) {
             $userNbRealisation[] = count($user->getRealisations());
         }
-        dd($userNbRealisation);
-
-
+        $userNbRealisation = array_count_values($userNbRealisation);
+        //var_dump($userNbRealisation);
+        $usersByBadge['jeune pousse'] = 0;
+        $usersByBadge['bonzaï'] = 0;
+        $usersByBadge['belle plante'] = 0;
+        $usersByBadge['bambou'] = 0;
+        $usersByBadge['baobab'] = 0;
+        $usersByBadge['king'] = 0;
+        foreach ($userNbRealisation as $key => $value) {
+            if ($key > 0 && $key <= 5){
+                $usersByBadge['jeune pousse'] += $value;
+            } elseif ($key > 5 && $key <= 10){
+                $usersByBadge['bonzaï'] += $value;
+            } elseif ($key > 10 && $key <= 15){
+                $usersByBadge['belle plante'] += $value;
+            } elseif ($key > 15 && $key <= 20){
+                $usersByBadge['bambou'] += $value;
+            } elseif ($key > 20 && $key <= 25){
+                $usersByBadge['baobab'] += $value;
+            } else {
+                $usersByBadge['king'] += $value;
+            }
+        }
+        return $this->json([
+            'usersByBadge' => $usersByBadge,
+        ]);
     }
-
 }
 
