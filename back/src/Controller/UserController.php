@@ -2,8 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Realisation;
+use App\Entity\User;
+use App\Repository\RealisationRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 class UserController extends AbstractController
 {
@@ -39,8 +45,14 @@ class UserController extends AbstractController
     /**
      * @Route("/all_users_all_points", name="all_users_all_points")
      */
-    public function allUsersAllPoints()
+    public function allUsersAllPoints(RealisationRepository $realisationRepository)
     {
+
+        $realisations = $realisationRepository->findAll();
+        $realisations = count($realisations);
+        return $this->json([
+            'realisations' => $realisations,
+        ]);
 
     }
 
@@ -55,28 +67,34 @@ class UserController extends AbstractController
 
     //Nouvelles habitudes d'un user
     /**
-     * @Route("/user/challenges", name"user_challenges")
+     * @Route("/user/challenges", name="user_challenges")
      */
     public function userChallenges()
     {
-
     }
 
     //Attribué le badge à un user
     /**
-     * @Route("/user/badge/{id}, name="user_badge")
+     * @Route("/user/badge/{id}", name="user_badge")
      */
     public function userBadge()
     {
 
     }
 
-    //Récap le nbre de user ayant chaque badge
+    //Récap le nbre de user par badge
     /**
-     * @Route("/users/count_badges", name"users_count_badges")
+     * @Route("/users/count_badges", name="users_count_badges")
      */
-    public function countBadges()
+    public function countBadges(UserRepository $userRepository)
     {
+        $users = $userRepository->findAll();
+        $userNbRealisation = [];
+        foreach ($users as $user) {
+            $userNbRealisation[] = count($user->getRealisations());
+        }
+        dd($userNbRealisation);
+
 
     }
 
