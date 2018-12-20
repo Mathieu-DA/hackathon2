@@ -19,32 +19,35 @@ class RealisationRepository extends ServiceEntityRepository
         parent::__construct($registry, Realisation::class);
     }
 
-    // /**
-    //  * @return Realisation[] Returns an array of Realisation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+     /**
+      * @return Realisation[] Returns an array of Realisation objects
+      */
+
+    public function findByExampleField($id)
     {
+        $first = new \DateTime('first day of this month');
+        $last = new \DateTime('last day of this month');
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->join('r.User', 'u')
+            ->where('u.id = :id')
+            ->setParameter('id', $id)
+            ->andWhere('r.created_at >= :first')
+            ->setParameter('first', $first)
+            ->andWhere('r.created_at <= :last')
+            ->setParameter('last', $last)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Realisation
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+//    public function findOneBySomeField($value): ?Realisation
+//    {
+//        return $this->createQueryBuilder('r')
+//            ->andWhere('r.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
+
 }

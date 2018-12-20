@@ -3,10 +3,16 @@
 namespace App\Controller;
 
 
+use App\Repository\RealisationRepository;
+use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Criteria;
+use Doctrine\ORM\EntityManager;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\DateTime;
+
 
 class UserController extends AbstractController
 {
@@ -14,6 +20,7 @@ class UserController extends AbstractController
     {
         $this->em = $em;
     }
+
 //    /**
 //     * @Route("/user", name="user")
 //     */
@@ -40,9 +47,15 @@ class UserController extends AbstractController
     /**
      * @Route("/user_month_points/{id}", name="user_month_points")
      */
-    public function userMonthPoints()
+    public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository)
     {
+        $now = new \DateTime();
+        $date = $now->format('Y-m');
 
+        $points = $realisationRepository->findByExampleField($id);
+        $res = count($points);
+
+        return $this->json(['res' => $res]);
     }
 
     //Compte tous les points acquis par les users depuis le début du jeu
