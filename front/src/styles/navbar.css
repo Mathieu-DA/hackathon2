@@ -2,10 +2,9 @@
 
 .mynavbar {
   position: fixed;
-  left: 0;
   color: black !important;
   font-size: 1.8em;
-  margin: 40px;
+  margin: 5vmin 10vmin 10vmin 20vmin;
   font-family: "Questrial";
 }
 
@@ -13,8 +12,17 @@
   color: black !important;
 }
 
+.activeLien {
+  text-decoration: underline #6fb9a8;
+}
+
 .navigation {
-  justify-content: center;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.itemMenu {
+  padding-left: 10vmin;
 }
 
 .logohome {
