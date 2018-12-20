@@ -2,27 +2,37 @@
 
 namespace App\Controller;
 
+
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    /**
-     * @Route("/user", name="user")
-     */
-    public function index()
+    public function __construct(EntityManagerInterface $em)
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        $this->em = $em;
     }
+//    /**
+//     * @Route("/user", name="user")
+//     */
+//    public function index()
+//    {
+//        return $this->render('user/index.html.twig', [
+//            'controller_name' => 'UserController',
+//        ]);
+//    }
 
     //Compte tous les points acquis par un user depuis le début du jeu
     /**
-     * @Route("/user_all_points/{id}", name="user_all_points")
+     * @Route("/user_all_points/{user}", name="user_all_points")
      */
-    public function userAllPoints()
+    public function userAllPoints(User $user)
     {
+        $realisations = $user->getRealisations();
+        $realisations = count($realisations->getKeys());
+        return $this->json(array('realisations' => $realisations));
 
     }
 
@@ -55,7 +65,7 @@ class UserController extends AbstractController
 
     //Nouvelles habitudes d'un user
     /**
-     * @Route("/user/challenges", name"user_challenges")
+     * @Route("/user/challenges", name="user_challenges")
      */
     public function userChallenges()
     {
@@ -64,7 +74,7 @@ class UserController extends AbstractController
 
     //Attribué le badge à un user
     /**
-     * @Route("/user/badge/{id}, name="user_badge")
+     * @Route("/user/badge/{id}", name="user_badge")
      */
     public function userBadge()
     {
@@ -73,7 +83,7 @@ class UserController extends AbstractController
 
     //Récap le nbre de user ayant chaque badge
     /**
-     * @Route("/users/count_badges", name"users_count_badges")
+     * @Route("/users/count_badges", name="users_count_badges")
      */
     public function countBadges()
     {
