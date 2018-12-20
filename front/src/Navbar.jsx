@@ -2,27 +2,17 @@ import React, { Component } from "react";
 import "./styles/App.css";
 import "./navbar.css";
 
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from "reactstrap";
 
 class Navigation extends Component {
   render() {
     return (
       <div>
-        <Navbar>
-          <NavbarBrand href="/">Coup de pousse</NavbarBrand>
-          <Nav>
+        <Navbar className="mynavbar">
+          <NavbarBrand className="logohome" href="/">
+            <img src="http://achat-tampon.fr/wp-content/uploads/2017/02/rond-logo.jpg" />
+          </NavbarBrand>
+          <Nav className="navigation">
             <NavItem>
               <NavLink href="#">Mes challenges</NavLink>
             </NavItem>
