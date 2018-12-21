@@ -45,7 +45,7 @@ class Success extends Component {
               30 points cumulés
             </p>
           </div>
-          <div className="badgeItem">
+          <div className="badgeItemGris">
             <img src={Bonzai} />
             <h3>Bonzaï</h3>
             <p>
@@ -53,7 +53,7 @@ class Success extends Component {
               45 points cumulés
             </p>
           </div>
-          <div className="badgeItem">
+          <div className="badgeItemGris">
             <img src={Baobab} />
             <h3>Baobab</h3>
             <p>
@@ -66,15 +66,19 @@ class Success extends Component {
           <h2>Mes nouvelles habitudes</h2>
           <div className="reussiteItem">
             <div className="circle">1</div>
-            <div className="reussiteText">Ma réussite numéro 1</div>
+            <div className="reussiteText">
+              Je supprime mes fichiers en double
+            </div>
           </div>
           <div className="reussiteItem">
             <div className="circle">2</div>
-            <div className="reussiteText">Ma réussite numéro 2</div>
+            <div className="reussiteText">
+              Je pense à fermer les onglets dans mon navigateur
+            </div>
           </div>
           <div className="reussiteItem">
             <div className="circle">3</div>
-            <div className="reussiteText">Ma réussite numéro 3</div>
+            <div className="reussiteText">Je réduis mon émission d'emails</div>
           </div>
         </div>
       </div>

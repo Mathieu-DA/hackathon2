@@ -23,6 +23,20 @@
   margin-top: 25%;
 }
 
+.badgeItemGris {
+  float: left;
+  text-align: center;
+  opacity: 0.2;
+}
+
+.badgeItemGris img {
+  width: 100px;
+  height: auto;
+  margin-top: 25%;
+  filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+}
+
 .badgeItem2 img {
   width: 100px;
   height: auto;

@@ -11,10 +11,16 @@
   font-family: "Questrial";
   width: 80%;
   margin: 0 auto;
+  top: 20px;
+  margin-bottom: 50px;
 }
 
 .mynavbar a {
   color: black !important;
+}
+
+.mynavbar a:hover {
+  text-decoration: underline #6fb9a8;
 }
 
 .activeLien {
@@ -31,7 +37,7 @@
 }
 
 .logohome {
-  width: 12%;
+  width: 15%;
   height: auto;
 }
 

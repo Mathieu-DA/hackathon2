@@ -10,6 +10,21 @@
   margin-bottom: 2vh;
 }
 
-.Cumule{
-  font-size: 1,5em;
+.btnDescription {
+  margin: 5px;
+  width: 20px;
+  background: #6fb9a8;
+  height: 20px;
+  text-align: center;
+  border-radius: 20px;
+  line-height: 15px;
+  color: white;
+  font-weight: bold;
+  font-size: 1em;
+  padding: 4px;
+  float: right;
+  border-width: 0;
+}
+.Cumule {
+  font-size: 1, 5em;
 }
