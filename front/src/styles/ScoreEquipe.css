@@ -1,0 +1,10 @@
+.ScoreEquipe{
+    font-size: 2em;
+}
+
+.NombrePoints{
+    border-radius: 10px;
+    width: 200px;
+    height: 55px;
+    border: 2px solid;
+}
