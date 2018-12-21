@@ -2,15 +2,15 @@
     font-size: 2em;
 }
 
-.NombrePoints{
+.Marquage{
     color:#6fb9a8;
+    font-weight: bold;
     
 }
 
-.Equivalent{
-    color:#6fb9a8 !important;
-}
-
-.Score{
-    margin-top: 20px;
+.Encars{
+    width: 60%;
+    margin: 0 auto;
+    background-color: #e4e4e4;
+    border-radius: 3px;
 }
