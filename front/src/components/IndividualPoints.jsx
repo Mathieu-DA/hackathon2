@@ -1,14 +1,18 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
+import "../styles/App.css";
 
 const IndividualPoints = props => (
   <div>
-    <p>J'ai cumulé {props.points} points. C'est l'équivalent d'un trajet allez-retour Paris-Lyon</p>
+    <p className="indPoints">
+      J'ai cumulé <span className="Points">{props.points} points</span>. C'est
+      l'équivalent d'un trajet aller-retour Paris-Lyon
+    </p>
   </div>
 );
 
 const mapStatetoProps = state => ({
-  points: state.individualPoints,
+  points: state.individualPoints
 });
 
 export default connect(mapStatetoProps)(IndividualPoints);

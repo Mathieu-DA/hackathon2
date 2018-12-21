@@ -1,16 +1,17 @@
-.ScoreEquipe{
-    font-size: 2em;
+.ScoreEquipe {
+  font-size: 2em;
+  margin-top: 80px;
 }
 
-.Marquage{
-    color:#6fb9a8;
-    font-weight: bold;
-    
+.Marquage {
+  color: #6fb9a8;
+  font-weight: bold;
 }
 
-.Encars{
-    width: 60%;
-    margin: 0 auto;
-    background-color: #e4e4e4;
-    border-radius: 3px;
+.Encars {
+  width: 100%;
+  margin: 0 auto;
+  background-color: #e4e4e4;
+  border-radius: 3px;
+  padding: 10px;
 }

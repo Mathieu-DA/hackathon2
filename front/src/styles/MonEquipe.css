@@ -1,3 +1,6 @@
-.Team{
-    margin-bottom: 80px;
+.Team {
+  margin-bottom: 80px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }

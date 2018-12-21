@@ -47,3 +47,12 @@ h3 {
     transform: rotate(360deg);
   }
 }
+
+.indPoints {
+  font-size: 1.4em !important;
+}
+
+.Points {
+  font-weight: bold;
+  color: #61dafb;
+}
