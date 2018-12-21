@@ -10,6 +10,7 @@ use App\Repository\ChallengeRepository;
 use App\Repository\RealisationRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\Criteria;
@@ -24,20 +25,28 @@ class UserController extends AbstractController
         $this->em = $em;
     }
 
-    //Compte tous les points acquis par un user sur le mois en cours
-    //page1
+
+    //page1 - Challenges du mois d'un user
     /**
-     * @Route("/user_month_points/{id}", name="user_month_points")
+     * @Route("/challenges/{id}", name="challenges")
      */
-    public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository)
+    public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
     {
-        $now = new \DateTime();
-        $date = $now->format('Y-m');
+        // envoyer toutes les tâches
+        $tasks = $challengeRepository->findAll();
+        foreach ($tasks as $task)
+        {
+            $challenge[] = $task->getDescription();
+        }
+       // dd($tasks);
+        //Compte tous les points acquis par un user sur le mois en cours
+//        $now = new \DateTime();
+//        $date = $now->format('Y-m');
 
         $points = $realisationRepository->findByExampleField($id);
         $res = count($points);
 
-        return $this->json(['res' => $res]);
+        return $this->json(['res' => $res, 'challenges' => $challenge]);
     }
 
     //page 2 - Team
@@ -85,54 +94,48 @@ class UserController extends AbstractController
                 $usersByBadge['king'] += $value;
             }
         }
+
+        dd($realisations);
+
+        $headers = ["Access-Control-Allow-Origin: *"];
+        //header("Access-Control-Allow-Origin: *");
+
         return $this->json([
             'realisations' => $realisations,
             'MonthRes' => $MonthRes,
             'usersByBadge' => $usersByBadge
-        ]);
+        ], 200, $headers);
     }
 
-    //page 3
+    //page 3 - Réalisations
     /**
      * @Route("/realisations/{user}", name="realisations")
      */
 
-    public function userAllPoints(User $user, UserRepository $userRepository, BadgeRepository $badgeRepository)
+    public function userAllPoints(User $user, UserRepository $userRepository, BadgeRepository $badgeRepository, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
     {
         //Compte tous les points acquis par un user depuis le début du jeu
-        $realisations = $user->getRealisations();
-        $realisations = count($realisations->getKeys());
+        $nbrRealisations = $user->getRealisations();
+        $nbRealisations = count($nbrRealisations->getKeys());
 
         //Attribué le badge à un user
         $user = $userRepository->findOneBy(['id' => $user]);
         $userRealisation = count($user->getRealisations());
         if ($userRealisation > 0 && $userRealisation <= 5){
-            $badge = $badgeRepository->findOneBy(['id' => 1 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 43 ]);
         } elseif ($userRealisation > 5 && $userRealisation <= 10){
-            $badge = $badgeRepository->findOneBy(['id' => 2 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 44 ]);
         } elseif ($userRealisation > 10 && $userRealisation <= 15){
-            $badge = $badgeRepository->findOneBy(['id' => 3 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 45 ]);
         } elseif ($userRealisation > 15 && $userRealisation <= 20){
-            $badge = $badgeRepository->findOneBy(['id' => 4 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 46 ]);
         } elseif ($userRealisation > 20 && $userRealisation <= 25){
-            $badge = $badgeRepository->findOneBy(['id' => 5 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 47 ]);
         } else {
-            $badge = $badgeRepository->findOneBy(['id' => 6 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 48 ]);
         }
 
-        return $this->json([
-            'realisations' => $realisations,
-            'badge' => $badge
-        ]);
-    }
-
-    //Nouvelles habitudes d'un user
-    /**
-     * @Route("/user/challenges/{user}", name="user_challenges")
-     */
-    public function userChallenges(User $user, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
-    {
-
+        //Nouvelles habitudes d'un user
         $realisations = $realisationRepository->findBy(['User' => $user]);
         $counts = [];
 
@@ -150,7 +153,7 @@ class UserController extends AbstractController
             if($count >= 3)
             {
                 $challenge [] = $challengeRepository->findOneBy(['id' => $key]);
-                $test[] = $challenge[$i]->getDescription();
+                $challengeName[] = $challenge[$i]->getDescription();
                 $i++;
 
             }
@@ -158,19 +161,46 @@ class UserController extends AbstractController
         }
 
         return $this->json([
-            'challenge' => $test,
+            'realisations' => $nbRealisations,
+            'badge' => $badge,
+            'challenge' => $challengeName
         ]);
-
     }
 
     //Récupérations des données du front
 
     /**
-     * @Route("add_realisations", name="add_realisations")
+     * @Route("/add_realisations", name="add_realisations")
      */
 
-    public function updateRealisations(ChallengeRepository $challengeRepository, UserRepository $userRepository)
+    public function addRealisations(UserRepository $userRepository, ChallengeRepository $challengeRepository, Request $request)
     {
+        // recupère le contenu de la request, de l'envoi, format json
+        $dataJson = $request->getContent();
+        // converti json en tableau associatif
+        $dataArray = json_decode($dataJson, true);
+
+        // recup la valeur à la clé user_id
+        $userId = $dataArray['user_id'];
+        // idem avec challenge_id
+        $challengeId = $dataArray['challenge_id'] ;
+        // recupère le user et le challenge avec les id recup au dessus
+        $user = $userRepository->find($userId);
+        $challenge = $challengeRepository->find($challengeId);
+        
+        //crée une nouvelle réalisation, hydrate l'objet
+        $realisation = new Realisation();
+        $realisation->setUser($user);
+        $realisation->setChallenge($challenge);
+        $realisation->setCreatedAt(new \DateTime());
+        
+        // insère en BDD
+        $this->em->persist($realisation);
+        $this->em->flush();
+        
+        // return l'id de la realisation créé
+        return $this->json($realisation->getId());
     }
+    
 }
 

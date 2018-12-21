@@ -17,31 +17,31 @@ class Success extends Component {
             <img src={PetiteGraine} />
             <h3>Petite Graine</h3>
             <p>
-              Obtenu le 12/09/2018 <br />
-              30 points cumulés
+              Obtenu le 05/08/2018 <br />
+              10 points cumulés
             </p>
           </div>
           <div className="badgeItem">
             <img src={JeunePousse} />
             <h3>Jeune Pousse</h3>
             <p>
-              Obtenu le 12/09/2018 <br />
-              30 points cumulés
+              Obtenu le 28/08/2018 <br />
+              20 points cumulés
             </p>
           </div>
           <div className="badgeItem">
             <img src={Pissenlit} />
             <h3>Pissenlit</h3>
             <p>
-              Obtenu le 12/09/2018 <br />
-              30 points cumulés
+              Obtenu le 25/10/2018 <br />
+              35 points cumulés
             </p>
           </div>
           <div className="badgeItem">
             <img src={Cerisier} />
             <h3>Cerisier</h3>
             <p>
-              Obtenu le 12/09/2018 <br />
+              Obtenu le 15/11/2018 <br />
               30 points cumulés
             </p>
           </div>
@@ -49,16 +49,16 @@ class Success extends Component {
             <img src={Bonzai} />
             <h3>Bonzaï</h3>
             <p>
-              Obtenu le 12/09/2018 <br />
-              30 points cumulés
+              Obtenu le ??/??/???? <br />
+              45 points cumulés
             </p>
           </div>
           <div className="badgeItemGris">
             <img src={Baobab} />
             <h3>Baobab</h3>
             <p>
-              Obtenu le 12/09/2018 <br />
-              30 points cumulés
+              Obtenu le ??/??/???? <br />
+              60 points cumulés
             </p>
           </div>
         </div>

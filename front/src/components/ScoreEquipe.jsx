@@ -11,18 +11,18 @@ render() {
 
 return (
 
-  <div>
      <Container>
       
-      <div >
-        <p className="Score">Votre équipe a cumulé un total de</p>
-        <p className="NombrePoints">482 points</p>
+      <div className="Encars">
+        <p >Votre équipe a cumulé un total de</p>
+        <p className="Marquage">246 points</p>
         <p>C'est l'équivalent de</p>
-        <p className="Equivalent">3 noix de coco bien juteuses</p>
+        <p className="Marquage">100 litres d'eau économisée <br/>
+        1 trajet Lyon-Nice aller-retour en voiture 
+        </p>
       </div>
     
     </Container>
-  </div>
     );
   }
 }
