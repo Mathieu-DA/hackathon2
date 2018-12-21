@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Table, ButtonGroup, Button } from 'reactstrap';
-import Checkbox from 'react-simple-checkbox';
-import '../styles/challengeTable.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Table, ButtonGroup, Button } from "reactstrap";
+import Checkbox from "react-simple-checkbox";
+import "../styles/challengeTable.css";
+import Popup from "reactjs-popup";
 // import moment from 'moment';
 // import 'moment/locale/fr';
 
@@ -19,7 +20,7 @@ class Challenge extends Component {
       sunday: 23,
       semaine: 51,
       prevClick: 0,
-      nextClick: 0,
+      nextClick: 0
     };
   }
 
@@ -34,7 +35,7 @@ class Challenge extends Component {
       sunday,
       semaine,
       prevClick,
-      nextClick,
+      nextClick
     } = this.state;
     if (prevClick > -2) {
       this.setState({
@@ -47,10 +48,10 @@ class Challenge extends Component {
         sunday: sunday - 7,
         semaine: semaine - 1,
         prevClick: prevClick - 1,
-        nextClick: nextClick + 1,
+        nextClick: nextClick + 1
       });
     }
-  }
+  };
 
   goToNextWeek = () => {
     const {
@@ -63,7 +64,7 @@ class Challenge extends Component {
       sunday,
       semaine,
       prevClick,
-      nextClick,
+      nextClick
     } = this.state;
     if (prevClick < 0) {
       this.setState({
@@ -76,10 +77,10 @@ class Challenge extends Component {
         sunday: sunday + 7,
         semaine: semaine + 1,
         prevClick: prevClick + 1,
-        nextClick: nextClick - 1,
+        nextClick: nextClick - 1
       });
     }
-  }
+  };
 
   render() {
     const { challenges } = this.props;
@@ -91,65 +92,151 @@ class Challenge extends Component {
       friday,
       saturday,
       sunday,
-      semaine,
+      semaine
     } = this.state;
     return (
       <div>
-        <h3>
-          Semaine
-          {' '}
-          {semaine}
-          {' '}
-          -
-          {' '}
-          2018
-        </h3>
+        <h3>Semaine {semaine} - 2018</h3>
         <Table>
           <thead>
-            <tr style={{ backgroundColor: '#ADFF2F' }}>
+            <tr style={{ backgroundColor: "#ADFF2F" }}>
               <th>Actions</th>
-              <th>Lundi <br /> {monday} décembre</th>
-              <th>Mardi <br /> {tuesday} décembre</th>
-              <th>Mercredi <br /> {wednesday} décembre</th>
-              <th>Jeudi <br /> {thursday} décembre</th>
-              <th>Vendredi <br /> {friday} décembre</th>
-              <th>Samedi <br /> {saturday} décembre</th>
-              <th>Dimanche <br /> {sunday} décembre</th>
+              <th>
+                Lundi <br /> {monday} décembre
+              </th>
+              <th>
+                Mardi <br /> {tuesday} décembre
+              </th>
+              <th>
+                Mercredi <br /> {wednesday} décembre
+              </th>
+              <th>
+                Jeudi <br /> {thursday} décembre
+              </th>
+              <th>
+                Vendredi <br /> {friday} décembre
+              </th>
+              <th>
+                Samedi <br /> {saturday} décembre
+              </th>
+              <th>
+                Dimanche <br /> {sunday} décembre
+              </th>
             </tr>
           </thead>
           <tbody>
-            {
-              challenges.map((challenge, index) => (
-                <tr>
-                  <th scope="row">{challenge}</th>
-                  <td><Checkbox tickSize="3" size="3" color={{ tickColor: "#ffffff" }} name="lundi" value="Bike" /></td>
-                  <td><Checkbox tickSize="3" size="3" color={{ tickColor: "#ffffff" }} name="mardi" value="Bike" /></td>
-                  <td><Checkbox tickSize="3" size="3" color={{ tickColor: "#ffffff" }} name="mercredi" value="Bike" /></td>
-                  <td><Checkbox tickSize="3" size="3" color={{ tickColor: "#ffffff" }} name="jeudi" value="Bike" /></td>
-                  <td><Checkbox tickSize="3" size="3" color={{ tickColor: "#ffffff" }} name="vendredi" value="Bike" /></td>
-                  <td><Checkbox tickSize="3" size="3" color={{ tickColor: "#ffffff" }} name="samedi" value="Bike" /> </td>
-                  <td><Checkbox tickSize="3" size="3" color={{ tickColor: "#ffffff" }} name="dimanche" value="Bike" /></td>
-                </tr>
-              ))}
+            {challenges.map((challenge, index) => (
+              <tr>
+                <th scope="row">
+                  {challenge.action}
+
+                  <Popup
+                    trigger={<button className="btnDescription">?</button>}
+                    position="right center"
+                  >
+                    {close => (
+                      <div>
+                        {challenge.description}
+                        <a className="close" onClick={close}>
+                          &times;
+                        </a>
+                      </div>
+                    )}
+                  </Popup>
+                </th>
+                <td>
+                  <Checkbox
+                    tickSize="3"
+                    size="3"
+                    color={{ tickColor: "#ffffff" }}
+                    name="lundi"
+                    value="Bike"
+                  />
+                </td>
+                <td>
+                  <Checkbox
+                    tickSize="3"
+                    size="3"
+                    color={{ tickColor: "#ffffff" }}
+                    name="mardi"
+                    value="Bike"
+                  />
+                </td>
+                <td>
+                  <Checkbox
+                    tickSize="3"
+                    size="3"
+                    color={{ tickColor: "#ffffff" }}
+                    name="mercredi"
+                    value="Bike"
+                  />
+                </td>
+                <td>
+                  <Checkbox
+                    tickSize="3"
+                    size="3"
+                    color={{ tickColor: "#ffffff" }}
+                    name="jeudi"
+                    value="Bike"
+                  />
+                </td>
+                <td>
+                  <Checkbox
+                    tickSize="3"
+                    size="3"
+                    color={{ tickColor: "#ffffff" }}
+                    name="vendredi"
+                    value="Bike"
+                  />
+                </td>
+                <td>
+                  <Checkbox
+                    tickSize="3"
+                    size="3"
+                    color={{ tickColor: "#ffffff" }}
+                    name="samedi"
+                    value="Bike"
+                  />{" "}
+                </td>
+                <td>
+                  <Checkbox
+                    tickSize="3"
+                    size="3"
+                    color={{ tickColor: "#ffffff" }}
+                    name="dimanche"
+                    value="Bike"
+                  />
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
         <div className="buttonGroup">
-          <Button className="prev" onClick={() => this.goToPrevWeek()}>Semaine précédente</Button>
-          <Button className="next" onClick={() => this.goToNextWeek()}>Semaine suivante</Button>
+          <Button className="prev" onClick={() => this.goToPrevWeek()}>
+            Semaine précédente
+          </Button>
+          <Button className="next" onClick={() => this.goToNextWeek()}>
+            Semaine suivante
+          </Button>
         </div>
-        <p>J'ai cumulé 123 points. C'est l'équivalent d'un trajet allez-retour Paris-Lyon</p>
+        <p>
+          J'ai cumulé 123 points. C'est l'équivalent d'un trajet allez-retour
+          Paris-Lyon
+        </p>
       </div>
     );
   }
 }
 
-
 const mapStatetoProps = state => ({
-  challenges: state.challengeList,
+  challenges: state.challengeList
 });
 
 // const mapDispatchToProps = dispatch => ({
 //   action: content => dispatch(actoin(content)),
 // });
 
-export default connect(mapStatetoProps, null)(Challenge);
+export default connect(
+  mapStatetoProps,
+  null
+)(Challenge);
