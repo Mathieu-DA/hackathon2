@@ -10,6 +10,7 @@ use App\Repository\ChallengeRepository;
 use App\Repository\RealisationRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\Criteria;
@@ -85,11 +86,17 @@ class UserController extends AbstractController
                 $usersByBadge['king'] += $value;
             }
         }
+
+        dd($realisations);
+
+        $headers = ["Access-Control-Allow-Origin: *"];
+        //header("Access-Control-Allow-Origin: *");
+
         return $this->json([
             'realisations' => $realisations,
             'MonthRes' => $MonthRes,
             'usersByBadge' => $usersByBadge
-        ]);
+        ], 200, $headers);
     }
 
     //page 3
@@ -139,11 +146,37 @@ class UserController extends AbstractController
     //Récupérations des données du front
 
     /**
-     * @Route("add_realisations", name="add_realisations")
+     * @Route("/add_realisations", name="add_realisations")
      */
 
-    public function updateRealisations(ChallengeRepository $challengeRepository, UserRepository $userRepository)
+    public function addRealisations(UserRepository $userRepository, ChallengeRepository $challengeRepository, Request $request)
     {
+        // recupère le contenu de la request, de l'envoi, format json
+        $dataJson = $request->getContent();
+        // converti json en tableau associatif
+        $dataArray = json_decode($dataJson, true);
+
+        // recup la valeur à la clé user_id
+        $userId = $dataArray['user_id'];
+        // idem avec challenge_id
+        $challengeId = $dataArray['challenge_id'] ;
+        // recupère le user et le challenge avec les id recup au dessus
+        $user = $userRepository->find($userId);
+        $challenge = $challengeRepository->find($challengeId);
+        
+        //crée une nouvelle réalisation, hydrate l'objet
+        $realisation = new Realisation();
+        $realisation->setUser($user);
+        $realisation->setChallenge($challenge);
+        $realisation->setCreatedAt(new \DateTime());
+        
+        // insère en BDD
+        $this->em->persist($realisation);
+        $this->em->flush();
+        
+        // return l'id de la realisation créé
+        return $this->json($realisation->getId());
     }
+    
 }
 
