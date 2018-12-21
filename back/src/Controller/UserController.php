@@ -32,6 +32,7 @@ class UserController extends AbstractController
 //    }
 
     //Compte tous les points acquis par un user depuis le début du jeu
+    //page 3
     /**
      * @Route("/user_all_points/{user}", name="user_all_points")
      */
@@ -44,6 +45,7 @@ class UserController extends AbstractController
     }
 
     //Compte tous les points acquis par un user sur le mois en cours
+    //page1
     /**
      * @Route("/user_month_points/{id}", name="user_month_points")
      */
@@ -59,6 +61,7 @@ class UserController extends AbstractController
     }
 
     //Compte tous les points acquis par les users depuis le début du jeu
+    //page 2
     /**
      * @Route("/all_users_all_points", name="all_users_all_points")
      */
@@ -68,6 +71,7 @@ class UserController extends AbstractController
     }
 
     //Compte tous les points acquis par les users sur le mois en cours
+    //page 2
     /**
      * @Route("/all_users_month_points", name="all_users_month_points")
      */
@@ -77,6 +81,7 @@ class UserController extends AbstractController
     }
 
     //Nouvelles habitudes d'un user
+    //page 3
     /**
      * @Route("/user/challenges", name="user_challenges")
      */
@@ -86,6 +91,7 @@ class UserController extends AbstractController
     }
 
     //Attribué le badge à un user
+    //page 3
     /**
      * @Route("/user/badge/{id}", name="user_badge")
      */
@@ -95,6 +101,7 @@ class UserController extends AbstractController
     }
 
     //Récap le nbre de user ayant chaque badge
+    //page 2
     /**
      * @Route("/users/count_badges", name="users_count_badges")
      */
