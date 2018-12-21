@@ -40,8 +40,8 @@ class UserController extends AbstractController
         }
        // dd($tasks);
         //Compte tous les points acquis par un user sur le mois en cours
-        $now = new \DateTime();
-        $date = $now->format('Y-m');
+//        $now = new \DateTime();
+//        $date = $now->format('Y-m');
 
         $points = $realisationRepository->findByExampleField($id);
         $res = count($points);
