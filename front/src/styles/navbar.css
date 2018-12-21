@@ -4,7 +4,10 @@
   position: fixed;
   color: black !important;
   font-size: 1.8em;
-  margin: 5vmin 10vmin 10vmin 20vmin;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  /* margin-top: 2vh;  */
+  margin-bottom: 2vh;
   font-family: "Questrial";
 }
 
@@ -26,7 +29,7 @@
 }
 
 .logohome {
-  width: 15%;
+  width: 8%;
   height: auto;
 }
 

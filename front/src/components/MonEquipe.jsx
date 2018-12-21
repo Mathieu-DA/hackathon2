@@ -11,23 +11,23 @@ class MonEquipe extends Component {
     super(props);
   }
 
-render() {
-return (
+  render() {
+    return (
 
-  <div>
+      <div>
 
-    <Container>
-      <Row>
-        <Col className="ScoreEquipe" xs="12"> <ScoreEquipe /> </Col>
-      </Row>
-      <Row>
-        <Col className="EquipeObjectif" xs="6"> <EquipeObjectif /> </Col>
-        <Col className="BadgeEquipe" xs="6"> <BadgeEquipe /> </Col>
-      </Row>
-    
-    </Container>
-    
-  </div>
+        <Container>
+          <Row>
+            <Col className="ScoreEquipe" xs="12"> <ScoreEquipe /> </Col>
+          </Row>
+          <Row>
+            <Col className="EquipeObjectif" xs="6"> <EquipeObjectif /> </Col>
+            <Col className="BadgeEquipe" xs="6"> <BadgeEquipe /> </Col>
+          </Row>
+
+        </Container>
+
+      </div>
 
     );
   }
