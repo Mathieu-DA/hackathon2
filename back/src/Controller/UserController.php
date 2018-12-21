@@ -24,7 +24,6 @@ class UserController extends AbstractController
         $this->em = $em;
     }
 
-
     //Compte tous les points acquis par un user sur le mois en cours
     //page1
     /**
@@ -45,7 +44,9 @@ class UserController extends AbstractController
     /**
      * @Route("/team", name="team")
      */
+
     public function allUsersAllPoints(RealisationRepository $realisationRepository, UserRepository $userRepository)
+
     {
         //Compte tous les points acquis par les users depuis le début du jeu
         $realisations = $realisationRepository->findAll();
@@ -84,25 +85,23 @@ class UserController extends AbstractController
                 $usersByBadge['king'] += $value;
             }
         }
-
         return $this->json([
             'realisations' => $realisations,
             'MonthRes' => $MonthRes,
             'usersByBadge' => $usersByBadge
         ]);
-
     }
 
     //page 3
     /**
      * @Route("/realisations/{user}", name="realisations")
      */
+
     public function userAllPoints(User $user, UserRepository $userRepository, BadgeRepository $badgeRepository)
     {
         //Compte tous les points acquis par un user depuis le début du jeu
         $realisations = $user->getRealisations();
         $realisations = count($realisations->getKeys());
-
 
         //Attribué le badge à un user
         $user = $userRepository->findOneBy(['id' => $user]);
@@ -125,10 +124,8 @@ class UserController extends AbstractController
             'realisations' => $realisations,
             'badge' => $badge
         ]);
-
     }
-
-
+  
     //Nouvelles habitudes d'un user
     //page 3
     /**
@@ -136,15 +133,17 @@ class UserController extends AbstractController
      */
     public function userChallenges()
     {
+
     }
 
     //Récupérations des données du front
+
     /**
      * @Route("add_realisations", name="add_realisations")
      */
+
     public function updateRealisations(ChallengeRepository $challengeRepository, UserRepository $userRepository)
     {
-
     }
 }
 
