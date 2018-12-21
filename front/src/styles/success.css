@@ -1,22 +1,25 @@
-.TitreBadge{
+.TitreBadge {
   margin-top: 2%;
 }
 
 .badges {
   justify-content: space-between;
   display: flex;
+}
+
+.success {
   width: 80%;
   margin: 0 auto;
 }
 
 .badgeItem {
   float: left;
+  text-align: center;
 }
 
 .badgeItem img {
   width: 100px;
   height: auto;
-  margin-left: 15px;
   margin-top: 25%;
 }
 
@@ -24,4 +27,34 @@
   width: 60px;
   height: auto;
   margin-left: 15px;
+}
+
+.reussites {
+  margin-top: 60px;
+}
+
+.circle {
+  margin: 20px;
+  width: 50px;
+  background: #6fb9a8;
+  height: 50px;
+  text-align: center;
+  border-radius: 100px;
+  line-height: 40px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 5px;
+  float: left;
+}
+
+.reussiteItem {
+  width: 100%;
+  float: left;
+}
+
+.reussiteText {
+  float: left;
+  height: 50px;
+  padding-top: 35px;
 }

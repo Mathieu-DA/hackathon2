@@ -25,20 +25,28 @@ class UserController extends AbstractController
         $this->em = $em;
     }
 
-    //Compte tous les points acquis par un user sur le mois en cours
-    //page1
+
+    //page1 - Challenges du mois d'un user
     /**
-     * @Route("/user_month_points/{id}", name="user_month_points")
+     * @Route("/challenges/{id}", name="challenges")
      */
-    public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository)
+    public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
     {
+        // envoyer toutes les tâches
+        $tasks = $challengeRepository->findAll();
+        foreach ($tasks as $task)
+        {
+            $challenge[] = $task->getDescription();
+        }
+       // dd($tasks);
+        //Compte tous les points acquis par un user sur le mois en cours
         $now = new \DateTime();
         $date = $now->format('Y-m');
 
         $points = $realisationRepository->findByExampleField($id);
         $res = count($points);
 
-        return $this->json(['res' => $res]);
+        return $this->json(['res' => $res, 'challenges' => $challenge]);
     }
 
     //page 2 - Team
@@ -99,48 +107,64 @@ class UserController extends AbstractController
         ], 200, $headers);
     }
 
-    //page 3
+    //page 3 - Réalisations
     /**
      * @Route("/realisations/{user}", name="realisations")
      */
 
-    public function userAllPoints(User $user, UserRepository $userRepository, BadgeRepository $badgeRepository)
+    public function userAllPoints(User $user, UserRepository $userRepository, BadgeRepository $badgeRepository, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
     {
         //Compte tous les points acquis par un user depuis le début du jeu
-        $realisations = $user->getRealisations();
-        $realisations = count($realisations->getKeys());
+        $nbrRealisations = $user->getRealisations();
+        $nbRealisations = count($nbrRealisations->getKeys());
 
         //Attribué le badge à un user
         $user = $userRepository->findOneBy(['id' => $user]);
         $userRealisation = count($user->getRealisations());
         if ($userRealisation > 0 && $userRealisation <= 5){
-            $badge = $badgeRepository->findOneBy(['id' => 1 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 43 ]);
         } elseif ($userRealisation > 5 && $userRealisation <= 10){
-            $badge = $badgeRepository->findOneBy(['id' => 2 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 44 ]);
         } elseif ($userRealisation > 10 && $userRealisation <= 15){
-            $badge = $badgeRepository->findOneBy(['id' => 3 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 45 ]);
         } elseif ($userRealisation > 15 && $userRealisation <= 20){
-            $badge = $badgeRepository->findOneBy(['id' => 4 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 46 ]);
         } elseif ($userRealisation > 20 && $userRealisation <= 25){
-            $badge = $badgeRepository->findOneBy(['id' => 5 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 47 ]);
         } else {
-            $badge = $badgeRepository->findOneBy(['id' => 6 ]);
+            $badge = $badgeRepository->findOneBy(['id' => 48 ]);
+        }
+
+        //Nouvelles habitudes d'un user
+        $realisations = $realisationRepository->findBy(['User' => $user]);
+        $counts = [];
+
+        foreach ($realisations as $value)
+        {
+            $counts[] = $value->getChallenge()->getId();
+
+        }
+
+        $counts = array_count_values($counts);
+        $challenge = [];
+        $i = 0;
+        foreach ($counts as $key => $count)
+        {
+            if($count >= 3)
+            {
+                $challenge [] = $challengeRepository->findOneBy(['id' => $key]);
+                $challengeName[] = $challenge[$i]->getDescription();
+                $i++;
+
+            }
+
         }
 
         return $this->json([
-            'realisations' => $realisations,
-            'badge' => $badge
+            'realisations' => $nbRealisations,
+            'badge' => $badge,
+            'challenge' => $challengeName
         ]);
-    }
-  
-    //Nouvelles habitudes d'un user
-    //page 3
-    /**
-     * @Route("/user/challenges", name="user_challenges")
-     */
-    public function userChallenges()
-    {
-
     }
 
     //Récupérations des données du front
