@@ -40,6 +40,23 @@ class RealisationRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Realisation[] Returns an array of Realisation objects
+     */
+    public function findByAllUsersPointsMonth()
+    {
+        $first = new \DateTime('first day of this month');
+        $last = new \DateTime('last day of this month');
+        return $this->createQueryBuilder('r')
+            ->join('r.User', 'u')
+            ->where('r.created_at >= :first')
+            ->setParameter('first', $first)
+            ->andWhere('r.created_at <= :last')
+            ->setParameter('last', $last)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 //    public function findOneBySomeField($value): ?Realisation
 //    {
 //        return $this->createQueryBuilder('r')

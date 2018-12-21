@@ -4,8 +4,13 @@
   position: fixed;
   color: black !important;
   font-size: 1.8em;
-  margin: 5vmin 10vmin 10vmin 20vmin;
+  /*   margin-left: 5vh;
+  margin-right: 5vh; */
+
+  /*   margin-bottom: 2vh; */
   font-family: "Questrial";
+  width: 80%;
+  margin: 0 auto;
 }
 
 .mynavbar a {
@@ -26,7 +31,7 @@
 }
 
 .logohome {
-  width: 15%;
+  width: 12%;
   height: auto;
 }
 
