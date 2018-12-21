@@ -6,10 +6,17 @@
 }
 
 h2 {
-  font-size: 2em;
+  font-size: 2em !important;
   color: #6fb9a8 !important;
   font-weight: bold !important;
   padding-bottom: 15px;
+}
+
+h3 {
+  font-size: 1.3em !important;
+  color: #6fb9a8 !important;
+  font-weight: bold !important;
+  padding-top: 10px;
 }
 
 .App-logo {
