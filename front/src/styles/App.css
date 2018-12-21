@@ -1,5 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Questrial");
+
 .App {
   text-align: center;
+  font-family: "Questrial";
+}
+
+h2 {
+  font-size: 2em;
+  color: #6fb9a8 !important;
+  font-weight: bold !important;
+  padding-bottom: 15px;
 }
 
 .App-logo {

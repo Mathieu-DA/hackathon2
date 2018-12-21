@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Questrial");
+
+.mynavbar {
+  position: fixed;
+  color: black !important;
+  font-size: 1.8em;
+  margin-left: 5vh;
+  margin-right: 5vh;
+  /* margin-top: 2vh;  */
+  margin-bottom: 2vh;
+  font-family: "Questrial";
+}
+
+.mynavbar a {
+  color: black !important;
+}
+
+.activeLien {
+  text-decoration: underline #6fb9a8;
+}
+
+.navigation {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.itemMenu {
+  padding-left: 10vmin;
+}
+
+.logohome {
+  width: 8%;
+  height: auto;
+}
+
+.logohome img {
+  width: 100%;
+  height: auto;
+}
