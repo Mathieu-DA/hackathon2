@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Badge;
 use App\Entity\Realisation;
 use App\Entity\User;
+use App\Repository\BadgeRepository;
 use App\Repository\RealisationRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,6 +31,7 @@ class UserController extends AbstractController
      */
     public function userAllPoints()
     {
+
 
     }
 
@@ -77,9 +80,28 @@ class UserController extends AbstractController
     /**
      * @Route("/user/badge/{id}", name="user_badge")
      */
-    public function userBadge()
+    public function userBadge(User $id, UserRepository $userRepository, BadgeRepository $badgeRepository)
     {
+        $user = $userRepository->findOneBy(['id' => $id]);
+        $userRealisation = count($user->getRealisations());
+        //dd($userRealisation);
+        if ($userRealisation > 0 && $userRealisation <= 5){
+            $badge = $badgeRepository->findOneBy(['id' => 1 ]);
+        } elseif ($userRealisation > 5 && $userRealisation <= 10){
+            $badge = $badgeRepository->findOneBy(['id' => 2 ]);
+        } elseif ($userRealisation > 10 && $userRealisation <= 15){
+            $badge = $badgeRepository->findOneBy(['id' => 3 ]);
+        } elseif ($userRealisation > 15 && $userRealisation <= 20){
+            $badge = $badgeRepository->findOneBy(['id' => 4 ]);
+        } elseif ($userRealisation > 20 && $userRealisation <= 25){
+            $badge = $badgeRepository->findOneBy(['id' => 5 ]);
+        } else {
+            $badge = $badgeRepository->findOneBy(['id' => 6 ]);
+        }
 
+        return $this->json([
+            'badge' => $badge,
+        ]);
     }
 
     //Récap le nbre de user par badge
@@ -94,7 +116,7 @@ class UserController extends AbstractController
             $userNbRealisation[] = count($user->getRealisations());
         }
         $userNbRealisation = array_count_values($userNbRealisation);
-        //var_dump($userNbRealisation);
+        //dd($userNbRealisation);
         $usersByBadge['jeune pousse'] = 0;
         $usersByBadge['bonzaï'] = 0;
         $usersByBadge['belle plante'] = 0;
