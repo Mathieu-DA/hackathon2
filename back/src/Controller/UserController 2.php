@@ -4,7 +4,6 @@ namespace App\Controller;
 
 
 use App\Entity\Realisation;
-use App\Repository\ChallengeRepository;
 use App\Repository\RealisationRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Criteria;
@@ -82,36 +81,27 @@ class UserController extends AbstractController
     /**
      * @Route("/user/challenges/{user}", name="user_challenges")
      */
-    public function userChallenges(User $user, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
+    public function userChallenges($id, UserRepository $userRepository, RealisationRepository $realisationRepository)
     {
+        $challengeCompleted = $userRepository->getRealisations();
+        dump($challengeCompleted);
+        $real = $realisationRepository->findBy($id);
+        dd($real);
+        $count = count($challengeCompleted->getKeys());
 
-        $realisations = $realisationRepository->findBy(['User' => $user]);
-        $counts = [];
 
-        foreach ($realisations as $value)
-        {
-            $counts[] = $value->getChallenge()->getId();
 
+//        $realisation->getChallenge();
+//        dd($realisation);
+
+
+
+        if($count >= 10) {
+            echo 'ok';
+        } else {
+            echo 'ko';
         }
 
-        $counts = array_count_values($counts);
-        $challenge = [];
-        $i = 0;
-        foreach ($counts as $key => $count)
-        {
-            if($count >= 3)
-            {
-                $challenge [] = $challengeRepository->findOneBy(['id' => $key]);
-                $test[] = $challenge[$i]->getDescription();
-                $i++;
-
-            }
-
-        }
-
-        return $this->json([
-            'challenge' => $test,
-        ]);
 
     }
 

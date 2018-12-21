@@ -1,0 +1,34 @@
+
+    /**
+     * @Route("/user/challenges/{user}", name="user_challenges")
+     */
+    public function userChallenges(User $user, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
+    {
+
+        $realisations = $realisationRepository->findBy(['User' => $user]);
+        $counts = [];
+
+        foreach ($realisations as $value)
+        {
+            $counts[] = $value->getChallenge()->getId();
+            $user = $value->getUser();
+        }
+
+        $counts = array_count_values($counts);
+        $challenge = [];
+        foreach ($counts as $key => $count)
+        {
+            if($count >= 3)
+            {
+                $challenge [] = $challengeRepository->findOneBy(['id' => $key]);
+
+            }
+
+        }
+
+        return $this->json([
+            'challenge' => $challenge,
+            'user' => $user,
+        ]);
+
+    }

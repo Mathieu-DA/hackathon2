@@ -40,14 +40,16 @@ class RealisationRepository extends ServiceEntityRepository
         ;
     }
 
-//    public function findOneBySomeField($value): ?Realisation
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findByUser($user): ?Realisation
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.User', 'u')
+            ->where('u.id', $user)
+            ->andWhere('r.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
 }
