@@ -29,8 +29,15 @@ class UserController extends AbstractController
     /**
      * @Route("/challenges/{id}", name="challenges")
      */
-    public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository)
+    public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
     {
+        // envoyer toutes les tâches
+        $tasks = $challengeRepository->findAll();
+        foreach ($tasks as $task)
+        {
+            $challenge[] = $task->getDescription();
+        }
+       // dd($tasks);
         //Compte tous les points acquis par un user sur le mois en cours
         $now = new \DateTime();
         $date = $now->format('Y-m');
@@ -38,7 +45,7 @@ class UserController extends AbstractController
         $points = $realisationRepository->findByExampleField($id);
         $res = count($points);
 
-        return $this->json(['res' => $res]);
+        return $this->json(['res' => $res, 'challenges' => $challenge]);
     }
 
     //page 2 - Team
