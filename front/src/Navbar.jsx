@@ -22,7 +22,7 @@ class Navigation extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink exact to="/team" activeClassName="activeLien">
+                <NavLink exact to="/MonEquipe" activeClassName="activeLien">
                   Mon équipe
                 </NavLink>
               </NavItem>
@@ -33,7 +33,7 @@ class Navigation extends Component {
           </Navbar>
           <Switch>
             <Route exact path="/" component={Challenges} />
-            <Route exact path="/team" component={Team} />
+            <Route exact path="/MonEquipe" component={MonEquipe} />
           </Switch>
         </div>
       </BrowserRouter>

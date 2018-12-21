@@ -1,3 +1,7 @@
+.TitreBadge{
+  margin-top: 2%;
+}
+
 .badges {
   justify-content: space-between;
   display: flex;
@@ -11,6 +15,13 @@
 
 .badgeItem img {
   width: 100px;
+  height: auto;
+  margin-left: 15px;
+  margin-top: 25%;
+}
+
+.badgeItem2 img {
+  width: 60px;
   height: auto;
   margin-left: 15px;
 }
