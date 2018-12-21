@@ -24,13 +24,14 @@ class UserController extends AbstractController
         $this->em = $em;
     }
 
-    //Compte tous les points acquis par un user sur le mois en cours
-    //page1
+
+    //page1 - Challenges du mois d'un user
     /**
-     * @Route("/user_month_points/{id}", name="user_month_points")
+     * @Route("/challenges/{id}", name="challenges")
      */
     public function userMonthPoints($id, UserRepository $userRepository, RealisationRepository $realisationRepository)
     {
+        //Compte tous les points acquis par un user sur le mois en cours
         $now = new \DateTime();
         $date = $now->format('Y-m');
 
@@ -92,7 +93,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    //page 3
+    //page 3 - Réalisations
     /**
      * @Route("/realisations/{user}", name="realisations")
      */
