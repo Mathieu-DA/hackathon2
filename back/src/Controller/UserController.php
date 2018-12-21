@@ -71,9 +71,11 @@ class UserController extends AbstractController
     /**
      * @Route("/all_users_month_points", name="all_users_month_points")
      */
-    public function allUsersMonthPoints()
+    public function allUsersMonthPoints(RealisationRepository $realisationRepository)
     {
-
+        $totalpoints = $realisationRepository->findByAllUsersPointsMonth();
+        $MonthRes = count($totalpoints);
+        return $this->json(['MonthRes' => $MonthRes]);
     }
 
     //Nouvelles habitudes d'un user
