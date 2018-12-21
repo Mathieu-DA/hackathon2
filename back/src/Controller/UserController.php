@@ -125,14 +125,41 @@ class UserController extends AbstractController
             'badge' => $badge
         ]);
     }
-  
+
     //Nouvelles habitudes d'un user
-    //page 3
     /**
-     * @Route("/user/challenges", name="user_challenges")
+     * @Route("/user/challenges/{user}", name="user_challenges")
      */
-    public function userChallenges()
+    public function userChallenges(User $user, RealisationRepository $realisationRepository, ChallengeRepository $challengeRepository)
     {
+
+        $realisations = $realisationRepository->findBy(['User' => $user]);
+        $counts = [];
+
+        foreach ($realisations as $value)
+        {
+            $counts[] = $value->getChallenge()->getId();
+
+        }
+
+        $counts = array_count_values($counts);
+        $challenge = [];
+        $i = 0;
+        foreach ($counts as $key => $count)
+        {
+            if($count >= 3)
+            {
+                $challenge [] = $challengeRepository->findOneBy(['id' => $key]);
+                $test[] = $challenge[$i]->getDescription();
+                $i++;
+
+            }
+
+        }
+
+        return $this->json([
+            'challenge' => $test,
+        ]);
 
     }
 
