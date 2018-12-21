@@ -55,7 +55,7 @@ class UserController extends AbstractController
 
     //Nouvelles habitudes d'un user
     /**
-     * @Route("/user/challenges", name"user_challenges")
+     * @Route("/user/challenges", name="user_challenges")
      */
     public function userChallenges()
     {
@@ -64,7 +64,7 @@ class UserController extends AbstractController
 
     //Attribué le badge à un user
     /**
-     * @Route("/user/badge/{id}, name="user_badge")
+     * @Route("/user/badge/{id}", name="user_badge")
      */
     public function userBadge()
     {
@@ -73,7 +73,7 @@ class UserController extends AbstractController
 
     //Récap le nbre de user ayant chaque badge
     /**
-     * @Route("/users/count_badges", name"users_count_badges")
+     * @Route("/users/count_badges", name="users_count_badges")
      */
     public function countBadges()
     {
