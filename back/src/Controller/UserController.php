@@ -6,6 +6,7 @@ use App\Entity\Badge;
 use App\Entity\Realisation;
 use App\Entity\User;
 use App\Repository\BadgeRepository;
+use App\Repository\ChallengeRepository;
 use App\Repository\RealisationRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,30 +24,8 @@ class UserController extends AbstractController
         $this->em = $em;
     }
 
-//    /**
-//     * @Route("/user", name="user")
-//     */
-//    public function index()
-//    {
-//        return $this->render('user/index.html.twig', [
-//            'controller_name' => 'UserController',
-//        ]);
-//    }
-
-    //Compte tous les points acquis par un user depuis le début du jeu
-    /**
-     * @Route("/user_all_points/{user}", name="user_all_points")
-     */
-    public function userAllPoints(User $user)
-    {
-        $realisations = $user->getRealisations();
-        $realisations = count($realisations->getKeys());
-        return $this->json(array('realisations' => $realisations));
-
-
-    }
-
     //Compte tous les points acquis par un user sur le mois en cours
+    //page1
     /**
      * @Route("/user_month_points/{id}", name="user_month_points")
      */
@@ -61,49 +40,72 @@ class UserController extends AbstractController
         return $this->json(['res' => $res]);
     }
 
-    //Compte tous les points acquis par les users depuis le début du jeu
+    //page 2 - Team
     /**
-     * @Route("/all_users_all_points", name="all_users_all_points")
+     * @Route("/team", name="team")
      */
-    public function allUsersAllPoints(RealisationRepository $realisationRepository)
-    {
 
+    public function allUsersAllPoints(RealisationRepository $realisationRepository, UserRepository $userRepository)
+
+    {
+        //Compte tous les points acquis par les users depuis le début du jeu
         $realisations = $realisationRepository->findAll();
         $realisations = count($realisations);
-        return $this->json([
-            'realisations' => $realisations,
-        ]);
 
-    }
-
-    //Compte tous les points acquis par les users sur le mois en cours
-    /**
-     * @Route("/all_users_month_points", name="all_users_month_points")
-     */
-    public function allUsersMonthPoints(RealisationRepository $realisationRepository)
-    {
+        //Compte tous les points acquis par les users sur le mois en cours
         $totalpoints = $realisationRepository->findByAllUsersPointsMonth();
         $MonthRes = count($totalpoints);
-        return $this->json(['MonthRes' => $MonthRes]);
+
+        //Récap le nbre de user par badge
+        $users = $userRepository->findAll();
+        $userNbRealisation = [];
+        foreach ($users as $user) {
+            $userNbRealisation[] = count($user->getRealisations());
+        }
+        $userNbRealisation = array_count_values($userNbRealisation);
+        //dd($userNbRealisation);
+        $usersByBadge['jeune pousse'] = 0;
+        $usersByBadge['bonzai'] = 0;
+        $usersByBadge['belle plante'] = 0;
+        $usersByBadge['bambou'] = 0;
+        $usersByBadge['baobab'] = 0;
+        $usersByBadge['king'] = 0;
+        foreach ($userNbRealisation as $key => $value) {
+            if ($key > 0 && $key <= 5){
+                $usersByBadge['jeune pousse'] += $value;
+            } elseif ($key > 5 && $key <= 10){
+                $usersByBadge['bonzai'] += $value;
+            } elseif ($key > 10 && $key <= 15){
+                $usersByBadge['belle plante'] += $value;
+            } elseif ($key > 15 && $key <= 20){
+                $usersByBadge['bambou'] += $value;
+            } elseif ($key > 20 && $key <= 25){
+                $usersByBadge['baobab'] += $value;
+            } else {
+                $usersByBadge['king'] += $value;
+            }
+        }
+        return $this->json([
+            'realisations' => $realisations,
+            'MonthRes' => $MonthRes,
+            'usersByBadge' => $usersByBadge
+        ]);
     }
 
-    //Nouvelles habitudes d'un user
+    //page 3
     /**
-     * @Route("/user/challenges", name="user_challenges")
+     * @Route("/realisations/{user}", name="realisations")
      */
-    public function userChallenges()
-    {
-    }
 
-    //Attribué le badge à un user
-    /**
-     * @Route("/user/badge/{id}", name="user_badge")
-     */
-    public function userBadge(User $id, UserRepository $userRepository, BadgeRepository $badgeRepository)
+    public function userAllPoints(User $user, UserRepository $userRepository, BadgeRepository $badgeRepository)
     {
-        $user = $userRepository->findOneBy(['id' => $id]);
+        //Compte tous les points acquis par un user depuis le début du jeu
+        $realisations = $user->getRealisations();
+        $realisations = count($realisations->getKeys());
+
+        //Attribué le badge à un user
+        $user = $userRepository->findOneBy(['id' => $user]);
         $userRealisation = count($user->getRealisations());
-        //dd($userRealisation);
         if ($userRealisation > 0 && $userRealisation <= 5){
             $badge = $badgeRepository->findOneBy(['id' => 1 ]);
         } elseif ($userRealisation > 5 && $userRealisation <= 10){
@@ -119,47 +121,29 @@ class UserController extends AbstractController
         }
 
         return $this->json([
-            'badge' => $badge,
+            'realisations' => $realisations,
+            'badge' => $badge
         ]);
     }
-
-    //Récap le nbre de user par badge
+  
+    //Nouvelles habitudes d'un user
+    //page 3
     /**
-     * @Route("/users/count_badges", name="users_count_badges")
+     * @Route("/user/challenges", name="user_challenges")
      */
-    public function countBadges(UserRepository $userRepository)
+    public function userChallenges()
     {
-        $users = $userRepository->findAll();
-        $userNbRealisation = [];
-        foreach ($users as $user) {
-            $userNbRealisation[] = count($user->getRealisations());
-        }
-        $userNbRealisation = array_count_values($userNbRealisation);
-        //dd($userNbRealisation);
-        $usersByBadge['jeune pousse'] = 0;
-        $usersByBadge['bonzaï'] = 0;
-        $usersByBadge['belle plante'] = 0;
-        $usersByBadge['bambou'] = 0;
-        $usersByBadge['baobab'] = 0;
-        $usersByBadge['king'] = 0;
-        foreach ($userNbRealisation as $key => $value) {
-            if ($key > 0 && $key <= 5){
-                $usersByBadge['jeune pousse'] += $value;
-            } elseif ($key > 5 && $key <= 10){
-                $usersByBadge['bonzaï'] += $value;
-            } elseif ($key > 10 && $key <= 15){
-                $usersByBadge['belle plante'] += $value;
-            } elseif ($key > 15 && $key <= 20){
-                $usersByBadge['bambou'] += $value;
-            } elseif ($key > 20 && $key <= 25){
-                $usersByBadge['baobab'] += $value;
-            } else {
-                $usersByBadge['king'] += $value;
-            }
-        }
-        return $this->json([
-            'usersByBadge' => $usersByBadge,
-        ]);
+
+    }
+
+    //Récupérations des données du front
+
+    /**
+     * @Route("add_realisations", name="add_realisations")
+     */
+
+    public function updateRealisations(ChallengeRepository $challengeRepository, UserRepository $userRepository)
+    {
     }
 }
 
