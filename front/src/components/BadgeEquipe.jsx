@@ -6,9 +6,28 @@ import Pissenlit from "../img/Pissenlit.png";
 import Bonzai from "../img/Bonzai.png";
 import Cerisier from "../img/Cerisier.png";
 import Baobab from "../img/Baobab.png";
+import axios from 'axios';
 
 class BadgeEquipe extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      badges: '',
+    }
+  }
+
+  componentWillMount() {
+    console.log("youpi")
+
+    axios.get("http://a32fdf95.ngrok.io/team")
+      .then(res => {
+        const team = res.data;
+        this.setState({ badges: team.usersByBadge });
+      })
+  }
+
   render() {
+    console.log(this.state.badges)
     return (
       <Container>
 
@@ -18,7 +37,7 @@ class BadgeEquipe extends Component {
 
         <Row>
           <Col className="badgeItem2">
-            <p>12 personnes ont le badge{" "}</p>
+            <p>{this.state.badges.jeunePousse} personnes ont le badge{" "}</p>
             <img src={PetiteGraine} />
             <h3>Petite graine</h3>
             
@@ -26,7 +45,7 @@ class BadgeEquipe extends Component {
           </Col>
 
           <Col className="badgeItem2">
-          <p>8 personnes ont le badge{" "}</p>
+          <p>{this.state.badges.bonzai} personnes ont le badge{" "}</p>
           <img src={JeunePousse} />
           <h3>Jeune Pousse</h3>
             
@@ -35,7 +54,7 @@ class BadgeEquipe extends Component {
 
         
           <Col className="badgeItem2">
-          <p>13 personnes ont le badge</p>
+          <p>{this.state.badges.bellePlante} personnes ont le badge</p>
           <img src={Pissenlit} />
           <h3>Pissenlit</h3>
           
@@ -43,7 +62,7 @@ class BadgeEquipe extends Component {
           </Col>
 
           <Col className="badgeItem2">
-          <p> 5 personnes ont le badge </p>
+          <p>{this.state.badges.bambou} personnes ont le badge </p>
           <img src={Bonzai} />
           <h3>Bonzaï</h3>
            
@@ -53,14 +72,14 @@ class BadgeEquipe extends Component {
 
        
           <Col className="badgeItem2">
-            <p>14 personnes ont le badge Cerisier</p>
+            <p>{this.state.badges.king} personnes ont le badge Cerisier</p>
             <img src={Cerisier} />
             <h3>Cerisier</h3>
            
           </Col>
 
           <Col className="badgeItem2">
-          <p>2 personnes ont le badge</p>
+          <p>{this.state.badges.baobab} personnes ont le badge</p>
           <img src={Baobab} />
           <h3>Baobab</h3>
             
