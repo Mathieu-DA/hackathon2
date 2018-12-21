@@ -21,17 +21,17 @@ const App = () => (
             <NavItem className="itemMenu">
               <NavLink exact to="/" activeClassName="activeLien">
                 Mes challenges
-                </NavLink>
+              </NavLink>
             </NavItem>
             <NavItem className="itemMenu">
               <NavLink exact to="/MonEquipe" activeClassName="activeLien">
                 Mon équipe
-                </NavLink>
+              </NavLink>
             </NavItem>
             <NavItem className="itemMenu">
               <NavLink exact to="/success" activeClassName="activeLien">
                 Mes réussites
-                </NavLink>
+              </NavLink>
             </NavItem>
           </Nav>
         </Navbar>
