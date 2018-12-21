@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch, BrowserRouter, NavLink } from "react-router-dom";
 import { Navbar, NavbarBrand, NavItem, Nav } from "reactstrap";
 import Challenges from "./components/Challenge";
+import MonEquipe from "./components/MonEquipe";
 import "./styles/App.css";
 import "./styles/navbar.css";
 import Team from "./components/Team";
@@ -23,7 +24,7 @@ const App = () => (
                 </NavLink>
             </NavItem>
             <NavItem className="itemMenu">
-              <NavLink exact to="/team" activeClassName="activeLien">
+              <NavLink exact to="/MonEquipe" activeClassName="activeLien">
                 Mon équipe
                 </NavLink>
             </NavItem>
@@ -36,7 +37,7 @@ const App = () => (
         </Navbar>
         <Switch>
           <Route exact path="/" component={Challenges} />
-          <Route exact path="/team" component={Team} />
+          <Route exact path="/MonEquipe" component={MonEquipe} />
           <Route exact path="/success" component={Success} />
         </Switch>
       </div>

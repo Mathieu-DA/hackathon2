@@ -4,24 +4,22 @@ import { Container, Row, Col } from 'reactstrap';
 
 
 class EquipeObjectif extends Component {
-  
+  render() {
 
-render() {
+    return (
 
-return (
- 
-  <div>
-     <Container>
-      
-    <div>
-      <p>Faites pousser le petit arbre !</p>
-      <p>Vous aurez une surprise !</p>
+      <div>
+        <Container>
 
-    </div>
-    
-    </Container>
-  </div>
-  
+          <div>
+            <p>Faites pousser le petit arbre !</p>
+            <p>Vous aurez une surprise !</p>
+
+          </div>
+
+        </Container>
+      </div>
+
     );
   }
 }
