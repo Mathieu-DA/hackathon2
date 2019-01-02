@@ -1,19 +1,30 @@
 .image1 img {
-    width: 100%;
+  width: 100%;
+  height: 25%;
   /* filter: grayscale(100%); */
 }
 
 .image2 img {
   width: 100%;
-/* filter: grayscale(100%); */
+  height: 25%;
+  /* filter: grayscale(100%); */
 }
 
 .image3 img {
   width: 100%;
-filter: grayscale(100%);
+  height: 25%;
+  filter: grayscale(100%);
+  opacity: 0.4;
 }
 
 .image4 img {
   width: 100%;
-filter: grayscale(100%);
+  height: 25%;
+  filter: grayscale(100%);
+  opacity: 0.4;
+}
+
+.arbre {
+  height: 100%;
+  width: 100%;
 }

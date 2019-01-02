@@ -17,6 +17,7 @@
 
 .mynavbar a {
   color: black !important;
+  outline: none !important;
 }
 
 .mynavbar a:hover {
@@ -34,6 +35,7 @@
 
 .itemMenu {
   padding-left: 10vmin;
+  outline: none !important;
 }
 
 .logohome {

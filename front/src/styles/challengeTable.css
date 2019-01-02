@@ -6,7 +6,7 @@
   margin-left: 1vh;
 }
 
-.checkbox  {
+.checkbox {
   margin-bottom: 0.5vh;
 }
 
@@ -28,6 +28,7 @@
   padding: 4px;
   float: right;
   border-width: 0;
+  border: none;
 }
 .Cumule {
   font-size: 1, 5em;
