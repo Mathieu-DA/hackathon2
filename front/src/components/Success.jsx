@@ -42,7 +42,7 @@ class Success extends Component {
             <h3>Cerisier</h3>
             <p>
               Obtenu le 15/11/2018 <br />
-              30 points cumulés
+              40 points cumulés
             </p>
           </div>
           <div className="badgeItemGris">

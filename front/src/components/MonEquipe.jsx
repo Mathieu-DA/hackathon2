@@ -11,7 +11,7 @@ class MonEquipe extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="App">
         <Container>
           <h2>
             Faites revivre l'arbre de votre équipe et obtenez une récompense !

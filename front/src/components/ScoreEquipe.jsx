@@ -17,7 +17,7 @@ class ScoreEquipe extends Component {
   componentWillMount() {
     console.log("youpi")
 
-    axios.get("http://8fa1718f.ngrok.io/team")
+    axios.get("http://a32fdf95.ngrok.io/team")
       .then(res => {
         console.log("youpi",res.data)
         const team = res.data;
@@ -34,7 +34,7 @@ class ScoreEquipe extends Component {
       
       <div className="Encars">
         <p >Votre équipe a cumulé un total de</p>
-        <p className="Marquage">{this.state.team.realisations+this.props.monscore} points</p>
+        <p className="Marquage">{!this.state.team ? '' : this.state.team.realisations+this.props.monscore} points</p>
         <p>C'est l'équivalent de</p>
         <p className="Marquage">100 litres d'eau économisée <br/>
         1 trajet Lyon-Nice aller-retour en voiture 
